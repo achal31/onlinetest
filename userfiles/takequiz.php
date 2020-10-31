@@ -33,7 +33,7 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
     
                 ?>
 
-<label>Question <?php echo $i;?>.<?php echo $showquestion['question']; ?></label>
+<label class="showquestion">Question <?php echo $i;?>.<?php echo $showquestion['question']; ?></label>
                 
                 <?php 
 
@@ -99,7 +99,7 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
 
                 ?>
 
-<label>Question.<?php echo $showquestion['question']; ?></label>
+<label class="showquestion" >Question.<?php echo $showquestion['question']; ?></label>
 <input type="hidden" class="calquestion" id="quesId" name="quesId" value="<?php echo $showquestion['question_id']; ?>" >
  
       

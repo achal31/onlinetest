@@ -17,7 +17,7 @@ while ($quizresult=mysqli_fetch_array($displayquiz)) {
     $questionname=mysqli_query($conn, $selectquestn);
     $totalquestion=mysqli_num_rows($questionname);
     ?>
-    <a href="takequiz.php?id=<?php echo $quizresult['quiz_id']; ?>&totalquestion=<?php echo $totalquestion; ?>" class="black"><?php echo $quizresult['quiz_name']; ?></a>
+    <a href="takequiz.php?id=<?php echo $quizresult['quiz_id']; ?>&totalquestion=<?php echo $totalquestion; ?>" class="linkbutton"><?php echo $quizresult['quiz_name']; ?></a>
       <?php      
 } 
 echo '</form>';

@@ -123,3 +123,7 @@
     .black {
         color: black;
     }
+    
+    .showquestion {
+        background-color: gainsboro;
+    }
