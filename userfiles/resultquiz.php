@@ -1,7 +1,8 @@
 <?php 
 include ('header.php');
 include ('config.php');
-session_start();
+
+
 $checkquiz="SELECT * FROM quiz where quiz_id='".$_SESSION['selectquizid']."'";
 $displayquiz=mysqli_query($conn, $checkquiz);
 while ($quizresult=mysqli_fetch_array($displayquiz)) {
