@@ -1,0 +1,121 @@
+    #loginpage,
+    #adminpage,
+    #registerpage {
+        /* The image used */
+        background-image: url("image.jpg");
+        /* Location of the image */
+        /* Background image is centered vertically and horizontally at all times */
+        background-position: center center;
+        /* Background image doesn't tile */
+        background-repeat: no-repeat;
+        /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+        background-attachment: fixed;
+        /* This is what makes the background image rescale based
+     on the container's size */
+        background-size: cover;
+        /* Set a background color that will be displayed
+     while the background image is loading */
+        background-color: #464646;
+    }
+    
+    #adminquestion {
+        margin: 0px;
+    }
+    
+    #wrapper {
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        width: auto;
+        padding: 3%;
+        background-color: white;
+        border-radius: 18px;
+    }
+    
+    #registerheading {
+        color: #1890ff;
+    }
+    
+    .linkbutton {
+        text-decoration: none;
+        background-color: #1890ff;
+        border: 2px;
+        border-radius: 10px;
+        color: white;
+        padding: 11px 15px 11px 15px;
+    }
+    
+    #detailbutton,
+    #addquestion,
+    #quizbutton,
+    #updatequestion,
+    .quiz {
+        background-color: #1890ff;
+        border: 2px;
+        border-radius: 10px;
+        color: white;
+        width: 155px;
+        padding: 12px 15px 12px 15px;
+    }
+    
+    .detail,
+    .ques,
+    #quiz {
+        width: 300px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #1890ff;
+        padding: 5px 10px;
+    }
+    
+    .detail,
+    #detailbutton,
+     :focus {
+        outline: none;
+    }
+    
+    #headerlist {
+        list-style-type: none;
+        color: white;
+        text-align: left;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: teal;
+        width: 100%;
+        margin: 0px;
+        padding: 10px;
+        cursor: pointer;
+    }
+    
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    
+    .listoption {
+        background-color: teal;
+        width: 40%;
+        display: inline;
+        margin-left: 100px;
+    }
+    
+    .listoption>a:hover {
+        color: tomato;
+    }
+    
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 9px;
+        background-color: gainsboro;
+        color: black;
+        text-align: right;
+        margin-left: -12px;
+    }
+    
+    td {
+        padding: 12px;
+    }

@@ -1,0 +1,123 @@
+      #adminquestion {
+          margin: 0px;
+      }
+      
+      #wrapper {
+          position: absolute;
+          left: 50%;
+          top: 10%;
+          width: auto;
+          padding: 3%;
+          background-color: white;
+          border-radius: 18px;
+      }
+      
+      #registerheading {
+          color: #1890ff;
+      }
+      
+      .linkbutton {
+          text-decoration: none;
+          background-color: #1890ff;
+          border: 2px;
+          border-radius: 10px;
+          color: white;
+          padding: 11px 15px 11px 15px;
+      }
+      
+      #detailbutton,
+      #addquestion,
+      #quizbutton,
+      #updatequestion,
+      #addquiz,
+      .quiz {
+          background-color: #1890ff;
+          border: 2px;
+          border-radius: 10px;
+          color: white;
+          width: 155px;
+          padding: 12px 15px 12px 15px;
+      }
+      
+      .detail,
+      .ques,
+      #quiz {
+          width: 300px;
+          background-color: transparent;
+          border: none;
+          border-bottom: 1px solid #1890ff;
+          padding: 5px 10px;
+      }
+      
+      .detail,
+      #detailbutton,
+       :focus {
+          outline: none;
+      }
+      
+      #headerlist {
+          list-style-type: none;
+          color: white;
+          text-align: left;
+          font-size: 16px;
+          font-weight: bold;
+          background-color: teal;
+          width: 100%;
+          margin: 0px;
+          padding: 10px;
+          cursor: pointer;
+      }
+      
+      a {
+          text-decoration: none;
+          color: white;
+      }
+      
+      .listoption {
+          background-color: teal;
+          display: inline;
+          margin-left: 75px;
+      }
+      
+      .listoption>a:hover {
+          color: tomato;
+      }
+      
+      #footer {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          padding: 9px;
+          background-color: gainsboro;
+          color: black;
+          text-align: right;
+          margin-left: -12px;
+      }
+      
+      td {
+          padding: 12px;
+      }
+      
+      table,
+      th,
+      td {
+          border: 0px;
+          border-collapse: collapse;
+      }
+      
+      tr:nth-child(even) {
+          background-color: #f2f2f2;
+      }
+      
+      th {
+          text-align: left;
+          width: 200px;
+          background-color: #4CAF50;
+          color: white;
+      }
+      
+      #availablequiz {
+          margin-left: 68%;
+          margin-top: -7%;
+      }
