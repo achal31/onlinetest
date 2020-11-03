@@ -12,7 +12,7 @@ while ($quizresult=mysqli_fetch_array($displayquiz)) {
     while ($quesresult=mysqli_fetch_array($displayques)) {
         $k++;
         if (isset($_POST['option'.$i.''])) {
-            if ($quesresult['answer_id']==$_POST['option'.$i.'']) {
+            if ($quesresult['answer_correct']==$_POST['option'.$i.'']) {
                 $j++;
         }
         $i++;
@@ -20,6 +20,12 @@ while ($quizresult=mysqli_fetch_array($displayquiz)) {
     }
     $i=$i-1;
     echo "<label>Your Total Score is $j out of $k </label>";
+    echo "<br>";
+    if ($j>($k/2)) {
+        echo "You Passed the test";
+    } else {
+        echo "You Failed";
+    }
 }
 ?>
 

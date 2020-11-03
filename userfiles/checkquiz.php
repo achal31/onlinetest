@@ -12,7 +12,9 @@ include ('config.php');
  $displayquiz=mysqli_query($conn, $select_quiz);
  
 while ($quizresult=mysqli_fetch_array($displayquiz)) {
+
     /*----Query to count the total question the quiz to pass as href------*/
+   
     $selectquestn="SELECT * FROM question WHERE quiz_id=".$quizresult['quiz_id'];
     $questionname=mysqli_query($conn, $selectquestn);
     $totalquestion=mysqli_num_rows($questionname);

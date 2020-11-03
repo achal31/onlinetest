@@ -35,27 +35,24 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
 
 <label class="showquestion">Question <?php echo $i;?>.<?php echo $showquestion['question']; ?></label>
                 
-                <?php 
-
-                /*-----Query to show the answer of the question---------*/
-
-                $selectanswr="SELECT * FROM answer WHERE question_id='".$showquestion['question_id']."'";
-                $answername=mysqli_query($conn, $selectanswr);
-                $j=1;
-                while ($showanswer=mysqli_fetch_array($answername)) {
-                    ?>
 
     <p>
-        <input type="radio" value="<?php echo $showanswer['answer_id']; ?>" name="option<?php echo $i; ?>" class="option">
-        <label for="option"><?php echo $showanswer['answer']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_1']; ?>" name="option1" class="option">
+        <label for="option"><?php echo $showquestion['answer_1']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_2']; ?>" name="option2" class="option">
+        <label for="option"><?php echo $showquestion['answer_2']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_3']; ?>" name="option3" class="option">
+        <label for="option"><?php echo $showquestion['answer_3']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_4']; ?>" name="option4" class="option">
+        <label for="option"><?php echo $showquestion['answer_4']; ?></label>
     </p>
     
                     <?php 
-                } $i++; 
+                 $i++; 
             } 
             ?>
     <!-------To Submit the quiz------------->
-    <input type="submit" name="submitquiz" value="SubmitQuiz">
+    <input type="submit" class="detailbutton" name="submitquiz" value="SubmitQuiz">
 </form>
                 <?php 
 
@@ -79,8 +76,8 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
                 $start_from=($page-1)*1;
 
                 /*------When Last Answer is selected the then result is calculated----------*/
-            if (isset($_SESSION['totalques'])&&($_SESSION['totalques']==$page)) {
-                    header("location:featureresult.php");
+            if (!empty($_SESSION['totalques'])&&($_SESSION['totalques']<$page)) {
+                header("location:featureresult.php");
             }
             
             /*------Storing the quiz id--------*/
@@ -94,7 +91,7 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
 
                 $selectquestn="SELECT * FROM question WHERE quiz_id='".$_SESSION['selectquizid']."' limit $start_from,$num_per_page ";
                 $questionname=mysqli_query($conn, $selectquestn);
-
+                
                 while ($showquestion=mysqli_fetch_array($questionname)) {
 
                 ?>
@@ -102,24 +99,21 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
 <label class="showquestion" >Question.<?php echo $showquestion['question']; ?></label>
 <input type="hidden" class="calquestion" id="quesId" name="quesId" value="<?php echo $showquestion['question_id']; ?>" >
  
-      
-                    <?php 
-                    $selectanswr="SELECT * FROM answer WHERE question_id='".$showquestion['question_id']."'";
-                    $answername=mysqli_query($conn, $selectanswr);
-                    $j=1; $i=1;
-                    while ($showanswer=mysqli_fetch_array($answername)) {
-                        ?>
 
-    <p>
-        <!------Showing the option------->
-        <input type="radio" value="<?php echo $showanswer['answer_id']; ?>" name="option<?php echo $i; ?>"  
-        class="option" 
-        <?php if(isset($_SESSION['saveans']) && isset($_SESSION['saveans'][$showquestion['question_id']]) && $_SESSION['saveans'][$showquestion['question_id']]==$showanswer['answer_id']) echo 'checked';  ?> >
-        <label for="option"><?php echo $showanswer['answer']; ?></label>
+<p>
+        <!----Php used in the input field is to checked the radio button set by the user ----->
+        <input type="radio" value="<?php echo $showquestion['answer_1']; ?>" name="option1" class="option"   <?php if(isset($_SESSION['saveans']) && isset($_SESSION['saveans'][$showquestion['question_id']]) && $_SESSION['saveans'][$showquestion['question_id']]==$showquestion['answer_1']) echo 'checked';  ?>>
+        <label for="option"><?php echo $showquestion['answer_1']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_2']; ?>" name="option2" class="option"    <?php if(isset($_SESSION['saveans']) && isset($_SESSION['saveans'][$showquestion['question_id']]) && $_SESSION['saveans'][$showquestion['question_id']]==$showquestion['answer_2']) echo 'checked';  ?> >
+        <label for="option"><?php echo $showquestion['answer_2']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_3']; ?>" name="option3" class="option"   <?php if(isset($_SESSION['saveans']) && isset($_SESSION['saveans'][$showquestion['question_id']]) && $_SESSION['saveans'][$showquestion['question_id']]==$showquestion['answer_3']) echo 'checked';  ?> >
+        <label for="option"><?php echo $showquestion['answer_3']; ?></label>
+        <input type="radio" value="<?php echo $showquestion['answer_4']; ?>" name="option4" class="option"   <?php if(isset($_SESSION['saveans']) && isset($_SESSION['saveans'][$showquestion['question_id']]) && $_SESSION['saveans'][$showquestion['question_id']]==$showquestion['answer_4']) echo 'checked';  ?> >
+        <label for="option"><?php echo $showquestion['answer_4']; ?></label>
     </p>
                         <?php 
-                    }
-                    $i++;
+                    
+                   
                 } 
             }
             echo '<br>';
@@ -127,12 +121,14 @@ if ((isset($_GET['id']))||$_SESSION['selectquizid']) {
             /*---------Pagination Concept--------*/
             if ($page>1) {
                 $currPage = $page-1;
-                echo "<a class='black' onclick='getansw($currPage)'>PREVIOUS</a>\t";
+                echo "<a class='linkbutton' onclick='getansw($currPage)'>PREVIOUS</a>\t";
             }
 
             if ($_SESSION['totalques']>=$page) {
                 $currPage = $page+1;
-                echo " <a class='black' onclick='getansw($currPage)'>NEXT</a>";
+               
+                echo " <a class='linkbutton' onclick='getansw($currPage)'>NEXT</a>";
+                
             }
         }
     }

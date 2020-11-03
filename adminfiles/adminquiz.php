@@ -7,7 +7,10 @@ include ("config.php");
 <!----Form to show the quiz to the user------->
 <form method="post" action="adminquestion.php">
 <p>
+    <!-----Input for entering quiz name-------->
     <input name="quizname" type="text" id="quiz" placeholder="Enter Quiz name" required> 
+    
+    <!------Ask user whether he want to provide pagination feature to the user or not------->
     <select name="feature" class="detail" required>
     <option value="" disabled selected>Allow Next/Previous Feature</option>
         <option value="1">Yes</option>

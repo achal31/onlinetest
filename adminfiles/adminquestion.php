@@ -3,16 +3,16 @@ include ('header.php');
 include ('config.php');
 session_start();
 ?>
+
+<!-------This Page consist of all feature update,add,delete,edit feature for admin------>
+
+
 <?php 
 
 /*------ This Function Will Delete The Selected Question and there answers-------*/
 
 if (isset($_POST['delete'])) {  
 
-    /*----Deletion Query For the Selected question---------*/
-
-    $deleteanswer="DELETE FROM answer WHERE question_id=".$_POST['editquestionid'];
-    $conn->query($deleteanswer);
 
     /*----Deletion Query For the Selected question's Answer ---------*/
 
@@ -28,7 +28,7 @@ if (isset($_POST['delete'])) {
 /*----This Function Will Edit The Values And Will Display Values in the Desired Fields-----*/
 
 if (isset($_POST['edit'])) {
-
+     
     echo '<h4>Enter detail to update the selected question</h4>';
 
       /*-----Values Storing In Session-------------*/
@@ -41,46 +41,23 @@ if (isset($_POST['edit'])) {
     $editques="SELECT * FROM question WHERE question_id='".$_SESSION['ques_id']."'";
     $question=mysqli_query($conn, $editques);
 
-    while ($showquestion=mysqli_fetch_array($question)) {
+    while ($showquiz=mysqli_fetch_array($question)) {
 
 
         /*----Script To Show the Question In The Field To The User-------*/
 
         echo '<script>
-        $(document).ready(function(){;
-        $("#question").val("'.$showquestion['question'].'");
+        $(document).ready(function(){
+        $("#question").val("'.$showquiz['question'].'");
+        $("#option1").val("'.$showquiz['answer_1'].'");
+        $("#option2").val("'.$showquiz['answer_2'].'");
+        $("#option3").val("'.$showquiz['answer_3'].'");
+        $("#option4").val("'.$showquiz['answer_4'].'");
+        $("#answer").val("'.$showquiz['answer_correct'].'");
         });
         </script>';
 
-    
-          /*------Query To Edit the Selected Question's Answer-------*/
-
-        $editanswer="SELECT * FROM answer WHERE question_id='".$_SESSION['ques_id']."'";
-        $answer=mysqli_query($conn, $editanswer);
-        $i=1;
-        while ($showanswer=mysqli_fetch_array($answer)) {
-
-            /*-----Script To Show The Answers In the fields----*/
-
-            echo '<script>$(document).ready(function(){
-                    $("#option'.$i.'").val("'.$showanswer['answer'].'");
-                        });</script>';
-            $i++;
-        }
-
-        /*------Query To Edit the Selected Question's Correct Answer-------*/
-
-        $correct_answer="SELECT * from answer where answer_id='".$showquestion['answer_id']."'";
-        $canswer=mysqli_query($conn, $correct_answer);
-        while ($sanswer=mysqli_fetch_array($canswer)) {
-
-             /*-----Script To Show The Correct Answers In the fields----*/
-
-            echo '<script>$(document).ready(function(){
-                $("#answer").val("'.$sanswer['answer'].'");
-                });</script>';
-        }
-    }
+    }  
 }
 
 
@@ -95,46 +72,11 @@ if (isset($_POST['add'])&&isset($_POST['edit'])) {
     $option4=$_POST['option4']; 
     $answer=$_POST['answer'];
     
-    /*---Query To Update the changes made in the questions-----*/
+    /*---Query To Update the changes made in the quiz detail----*/
 
-    $updateques="UPDATE question SET question='".$question."' WHERE question_id='".$_SESSION['ques_id']."'";
+    $updateques="UPDATE question SET question='".$question."',answer_1='".$option1."',answer_2='".$option2."',answer_3='".$option3."',answer_4='".$option4."',answer_correct='".$answer."' WHERE question_id='".$_SESSION['ques_id']."'";
     $conn->query($updateques);
     
-
-     /*---Query To Update the changes made in the answer-----*/
-
-    $sle="SELECT * FROM answer WHERE question_id='".$_SESSION['ques_id']."'";
-    $canswer=mysqli_query($conn, $sle);
-    while ($sanswer=mysqli_fetch_array($canswer)) {
-        $slect= $sanswer['answer_id']-3;
-    }
-    echo $slect;
-    $updateanswer="UPDATE answer SET answer='".$option1."' WHERE answer_id='".$slect."'";
-    $conn->query($updateanswer);
-    $slect=$slect+1;
-    $updateanswer="UPDATE answer SET answer='".$option2."' WHERE answer_id='".$slect."'";
-    $conn->query($updateanswer);
-    $slect=$slect+1;
-    $updateanswer="UPDATE answer SET answer='".$option3."' WHERE answer_id='".$slect."'";
-    $conn->query($updateanswer);
-    $slect=$slect+1;
-    $updateanswer="UPDATE answer SET answer='".$option4."' WHERE answer_id='".$slect."'";
-    $conn->query($updateanswer);
-
-
-     /*---Query To Update the changes made in the Correct Answer----*/
-
-    $correct_answer="SELECT * FROM answer WHERE answer='$answer'";
-    $displayquery=mysqli_query($conn, $correct_answer);
-    while ($correctanswerid=mysqli_fetch_array($displayquery)) {
-        $answerid=$correctanswerid['answer_id'];
-    }
-
-    $updatecorrect="UPDATE question SET answer_id='".$answerid."' WHERE question_id='".$_SESSION['ques_id']."'";
-    $conn->query($updatecorrect);
-     
-    /*----Header Will move to viewquiz.php-------*/
-
     header("location:viewquiz.php");
 }
     
@@ -143,24 +85,30 @@ if (isset($_POST['add'])&&isset($_POST['edit'])) {
 /*----This Function Will Allow User To Add New quiz---*/
 
 if (isset($_POST['addquiz'])) {
-    if (isset($_POST['quizname'])) {   
+    if (isset($_POST['quizname'])) {  
+
         $feature=$_POST['feature'];
         $_SESSION['quizname']=$_POST['quizname'];
+
         echo' <h4>Adding Questions For Quiz : '.$_SESSION['quizname'].'</h4>';
+
         $quizname=$_POST['quizname'];
+
         $sql="INSERT INTO quiz (quiz_name,feature) VALUES('$quizname','$feature')";
         $conn->query($sql);
+
         $last_id = $conn->insert_id;
+        
         $_SESSION['quiz_id']=$last_id;
     }
 
     /*-----This Function Will Allow User Add new question to Existing Quiz-----*/
-    else if (isset($_POST['addquiz'])&&empty($_POST['quizname'])) {
-        $_SESSION['quiz_id']=$_POST['quizid'];
+    else if (isset($_GET['getquizid'])) {
+        $_SESSION['quiz_id']=$_GET['getquizid'];
     }
 }    
 
-/*------This Function will add question to the quiz-------*/
+/*------This Function will add question to the New/Exisitng quiz-------*/
 if (isset($_POST['add'])) {
     
     $question=$_POST['question'];
@@ -172,28 +120,8 @@ if (isset($_POST['add'])) {
 
 
     /*-----Query to insert the question------*/
-    $insert_question="INSERT INTO question (quiz_id,question) VALUES('".$_SESSION['quiz_id']."','$question')";
-    $conn->query($insert_question); 
-    $quesid = $conn->insert_id;
-
-            /*------Query to insert the answer to the database-----*/
-            $insert_answer="INSERT INTO answer (answer,question_id) VALUES('$option1','$quesid')";
-            $conn->query($insert_answer);
-            $insert_answer="INSERT INTO answer (answer,question_id) VALUES('$option2','$quesid')";
-            $conn->query($insert_answer);
-            $insert_answer="INSERT INTO answer (answer,question_id) VALUES('$option3','$quesid')";
-            $conn->query($insert_answer);
-            $insert_answer="INSERT INTO answer (answer,question_id) VALUES('$option4','$quesid')";
-            $conn->query($insert_answer);
-
-            /*------Query to insert the correct answer id to the database-----*/
-            $correct_answer="SELECT * FROM answer WHERE answer='$answer'";
-            $displayquery=mysqli_query($conn, $correct_answer);
-    while ($correctanswerid=mysqli_fetch_array($displayquery)) {
-         $answerid=$correctanswerid['answer_id'];
-    }
-    $insert_question="INSERT INTO question (answer_id) VALUES('$answerid') WHERE question_id='".$quesid."'";
-    $conn->query($insert_question); 
+    $insert_question="INSERT INTO question (quiz_id,question,answer_1,answer_2,answer_3,answer_4,answer_correct) VALUES('".$_SESSION['quiz_id']."','$question','$option1','$option2','$option3','$option4','$answer')";
+    $conn->query($insert_question);                 
 }
 ?>
    

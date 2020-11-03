@@ -14,11 +14,11 @@ include('insert.php');
     <form id="register" method="post" action="login.php">
         
         <p>
-            <input type="text" name="name" placeholder="name" class="detail" required>
+            <input type="text" name="name" placeholder="Enter The User Name" class="detail" required>
         </p>
         
         <p>
-           <input type="password" name="password" placeholder="Password" class="detail" id="password" required>
+           <input type="password" name="password" placeholder="Enter The Password" class="detail" id="password" required>
         </p>
        
         <p>
